@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/app_logo_color"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="공지사항 작성"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_save_draft"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="임시저장"
+                android:textSize="12sp"
+                android:backgroundTint="@color/teal_700"
+                android:textColor="@color/white"
+                style="?android:attr/buttonStyleSmall" />
+
+        </LinearLayout>
+
+        <!-- Writing Form -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Category Selection -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="카테고리"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <Spinner
+                    android:id="@+id/spinner_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Priority Setting -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="우선순위"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioGroup
+                    android:id="@+id/rg_priority"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일반"
+                        android:textSize="16sp"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/rb_important"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중요"
+                        android:textSize="16sp"
+                        android:layout_marginStart="24dp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_urgent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="긴급"
+                        android:textSize="16sp"
+                        android:layout_marginStart="24dp" />
+
+                </RadioGroup>
+
+                <!-- Title Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="제목"
+                    app:boxStrokeColor="@color/app_logo_color"
+                    app:hintTextColor="@color/app_logo_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="2" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Content Input -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="내용"
+                    app:boxStrokeColor="@color/app_logo_color"
+                    app:hintTextColor="@color/app_logo_color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:lines="10"
+                        android:gravity="top|start" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Attachment Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="첨부파일"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/btn_attach_image"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="이미지"
+                        android:textSize="14sp"
+                        android:backgroundTint="@color/teal_200"
+                        android:drawableTop="@android:drawable/ic_menu_gallery" />
+
+                    <Button
+                        android:id="@+id/btn_attach_file"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="파일"
+                        android:textSize="14sp"
+                        android:backgroundTint="@color/teal_200"
+                        android:drawableTop="@android:drawable/ic_menu_add" />
+
+                </LinearLayout>
+
+                <!-- Attachment List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_attachments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone" />
+
+                <!-- Target Audience -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="공지 대상"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <CheckBox
+                        android:id="@+id/cb_all_guardians"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="모든 보호자"
+                        android:textSize="16sp"
+                        android:checked="true" />
+
+                    <CheckBox
+                        android:id="@+id/cb_all_staff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="모든 직원"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_specific_groups"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="특정 그룹만"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <!-- Notification Settings -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="알림 설정"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="24dp">
+
+                    <CheckBox
+                        android:id="@+id/cb_push_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="푸시 알림 발송"
+                        android:textSize="16sp"
+                        android:checked="true" />
+
+                    <CheckBox
+                        android:id="@+id/cb_sms_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SMS 알림 발송"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <!-- Action Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_preview"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="미리보기"
+                        android:textSize="16sp"
+                        android:backgroundTint="@color/teal_700" />
+
+                    <Button
+                        android:id="@+id/btn_publish"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="게시하기"
+                        android:textSize="16sp"
+                        android:backgroundTint="@color/app_logo_color" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Help Text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• 공지사항은 게시 후 수정이 가능합니다\n• 긴급 공지는 즉시 푸시 알림이 발송됩니다\n• 첨부파일은 최대 10MB까지 업로드 가능합니다"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            android:padding="16dp"
+            android:lineSpacingExtra="4dp" />
+
+    </LinearLayout>
+
+</ScrollView>

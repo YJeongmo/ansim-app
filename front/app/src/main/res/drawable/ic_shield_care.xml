@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120"
+    android:tint="@android:color/transparent">
+    
+    <!-- 방패 외곽선 (위쪽 둥글고 아래쪽 뾰족한 전통적인 방패 형태) -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M60,10 
+                         C80,15 95,30 95,55 
+                         C95,70 90,80 80,90 
+                         L60,100 
+                         L40,90 
+                         C30,80 25,70 25,55 
+                         C25,30 40,15 60,10 Z" />
+    
+    <!-- 방패 상단 십자(+) 모양 - 더 정확한 위치와 크기 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M55,30 L55,40 L65,40 L65,30 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,35 L70,35 L70,45 L50,45 Z" />
+    
+    <!-- 두 개의 손바닥 (위를 향해 열려있는 모습) - 더 정확한 모양 -->
+    <!-- 왼쪽 손바닥 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M42,55 
+                         C40,55 38,57 38,60 
+                         C38,63 40,65 42,65 
+                         C44,65 46,63 46,60 
+                         C46,57 44,55 42,55 Z" />
+    
+    <!-- 오른쪽 손바닥 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,55 
+                         C76,55 74,57 74,60 
+                         C74,63 76,65 78,65 
+                         C80,65 82,63 82,60 
+                         C82,57 80,55 78,55 Z" />
+    
+    <!-- 손바닥 내부 손가락 표현 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M43,58 L43,62 L45,62 L45,58 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M79,58 L79,62 L81,62 L81,58 Z" />
+    
+    <!-- 손바닥 하단 손목 부분 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M40,65 L40,68 L48,68 L48,65 Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M76,65 L76,68 L84,68 L84,65 Z" />
+        
+</vector>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 기본 버튼 스타일 -->
+    <style name="ButtonModern" parent="Widget.Material3.Button">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/button_primary_text</item>
+        <item name="android:background">@drawable/button_purple_background</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">4</item>
+    </style>
+    
+    <!-- Primary 버튼 (주요 기능) -->
+    <style name="ButtonPrimary" parent="ButtonModern">
+        <item name="android:background">@drawable/button_purple_background</item>
+        <item name="android:textColor">@color/button_primary_text</item>
+    </style>
+    
+    <!-- Secondary 버튼 (보조 기능) -->
+    <style name="ButtonSecondary" parent="ButtonModern">
+        <item name="android:background">@drawable/button_teal_background</item>
+        <item name="android:textColor">@color/button_secondary_text</item>
+    </style>
+    
+    <!-- Accent 버튼 (강조 기능) -->
+    <style name="ButtonAccent" parent="ButtonModern">
+        <item name="android:background">@drawable/button_orange_background</item>
+        <item name="android:textColor">@color/button_accent_text</item>
+    </style>
+    
+    <!-- Warning 버튼 (경고/긴급) -->
+    <style name="ButtonWarning" parent="ButtonModern">
+        <item name="android:background">@drawable/button_red_background</item>
+        <item name="android:textColor">@color/button_warning_text</item>
+    </style>
+    
+    <!-- Info 버튼 (정보/알림) -->
+    <style name="ButtonInfo" parent="ButtonModern">
+        <item name="android:background">@drawable/button_info_background</item>
+        <item name="android:textColor">@color/button_info_text</item>
+    </style>
+    
+    <!-- Gray 버튼 (비활성/보조) -->
+    <style name="ButtonGray" parent="ButtonModern">
+        <item name="android:background">@drawable/button_gray_background</item>
+        <item name="android:textColor">@color/button_gray_text</item>
+    </style>
+    
+    <!-- 작은 버튼 스타일 -->
+    <style name="ButtonSmall" parent="ButtonModern">
+        <item name="android:layout_height">36dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+    
+    <!-- 큰 버튼 스타일 -->
+    <style name="ButtonLarge" parent="ButtonModern">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:paddingStart">32dp</item>
+        <item name="android:paddingEnd">32dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+</resources>

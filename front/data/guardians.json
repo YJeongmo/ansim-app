@@ -1,0 +1,16 @@
+[
+  {
+    "guardian_id": 1,
+    "name": "이명희",
+    "phone": "010-2222-3333",
+    "email": "lee.myunghee@gmail.com",
+    "created_at": "2024-01-20T10:00:00Z"
+  },
+  {
+    "guardian_id": 2,
+    "name": "최영철",
+    "phone": "010-4444-5555",
+    "email": "choi.youngchul@naver.com",
+    "created_at": "2024-02-25T11:15:00Z"
+  }
+]

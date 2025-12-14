@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="안심요양원"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
+
+    <!-- 보라색 방패 아이콘 -->
+    <ImageView
+        android:layout_width="320dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo"
+        android:scaleType="centerCrop"
+        android:contentDescription="안심요양원 아이콘"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Menu Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="32dp">
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="어떤 기능을 이용하시겠습니까?"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginBottom="30dp" />
+
+        <Button
+            android:id="@+id/btn_find_care_center"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            android:text="주변 요양원 찾기"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="로그인/회원가입"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

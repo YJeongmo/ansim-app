@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/guardian_background_gradient">
+
+    <!-- 알림 버튼 컨테이너 (우상단) -->
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageButton
+            android:id="@+id/btn_notifications"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_notifications_24"
+            android:contentDescription="알림"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:tint="@color/app_logo_color" />
+
+        <!-- 빨간 점 (알림이 있을 때만 표시) -->
+        <View
+            android:id="@+id/notification_badge"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/notification_badge"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <!-- 메인 콘텐츠 (중앙 정렬) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_below="@id/btn_notifications"
+        android:layout_marginTop="16dp">
+
+               <!-- 메인 제목 -->
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:gravity="center_vertical"
+                   android:paddingVertical="16dp"
+                   android:layout_marginBottom="8dp">
+
+                   <!-- 왼쪽 로고 -->
+                   <ImageView
+                       android:layout_width="72dp"
+                       android:layout_height="72dp"
+                       android:src="@drawable/logo"
+                       android:layout_marginEnd="0dp" />
+
+                   <!-- 제목 텍스트 -->
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="안심요양원"
+                       android:textSize="28sp"
+                       android:textStyle="bold"
+                       android:textColor="#8B5CF6" />
+
+               </LinearLayout>
+
+        <!-- 개인화된 인사말 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수고하시는 모든 직원분들께 감사합니다"
+            android:textSize="16sp"
+            android:textColor="#6B7280"
+            android:layout_marginBottom="12dp" />
+
+               <!-- 시간 기반 인사말 -->
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="안녕하세요, 요양원 직원님 👋"
+                   android:textSize="18sp"
+                   android:textStyle="bold"
+                   android:textColor="#374151"
+                   android:layout_marginBottom="32dp" />
+
+        <!-- 2x3 그리드 메뉴 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
+
+            <!-- 첫 번째 행 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <!-- 수급자 목록 -->
+                <LinearLayout
+                    android:id="@+id/btn_recipient_list"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/button_modern_card"
+                    android:padding="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:elevation="6dp"
+                    android:shadowColor="#30000000"
+                    android:shadowDx="0"
+                    android:shadowDy="3"
+                    android:shadowRadius="6">
+
+                           <ImageView
+                               android:layout_width="32dp"
+                               android:layout_height="32dp"
+                               android:src="@drawable/ic_patients"
+                               android:contentDescription="수급자 목록"
+                               android:layout_marginBottom="12dp"
+                               android:tint="#6750A4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수급자\n목록"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+                <!-- 공지사항 관리 -->
+                <LinearLayout
+                    android:id="@+id/btn_notices"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/button_modern_card"
+                    android:padding="8dp"
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:elevation="6dp"
+                    android:shadowColor="#30000000"
+                    android:shadowDx="0"
+                    android:shadowDy="3"
+                    android:shadowRadius="6">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_notice"
+                        android:contentDescription="공지사항"
+                        android:layout_marginBottom="12dp"
+                        android:tint="#6750A4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="공지사항\n관리"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 두 번째 행 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <!-- 상담 일정 확인 -->
+                <LinearLayout
+                    android:id="@+id/btn_schedule_management"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/button_modern_card"
+                    android:padding="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:elevation="6dp"
+                    android:shadowColor="#30000000"
+                    android:shadowDx="0"
+                    android:shadowDy="3"
+                    android:shadowRadius="6">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_schedule"
+                        android:contentDescription="상담 일정"
+                        android:layout_marginBottom="12dp"
+                        android:tint="#6750A4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="상담 일정\n관리"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+                <!-- 비회원 상담 신청 관리 -->
+                <LinearLayout
+                    android:id="@+id/btn_consultation_requests"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/button_modern_card"
+                    android:padding="8dp"
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:elevation="6dp"
+                    android:shadowColor="#30000000"
+                    android:shadowDx="0"
+                    android:shadowDy="3"
+                    android:shadowRadius="6">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_consultation"
+                        android:contentDescription="상담 신청"
+                        android:layout_marginBottom="12dp"
+                        android:tint="#6750A4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비회원 상담\n신청 관리"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

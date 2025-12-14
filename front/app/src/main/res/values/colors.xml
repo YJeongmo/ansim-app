@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_50">#FFF3E5F5</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_500">#FF009688</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Google Maps 관련 색상 -->
+    <color name="gray_100">#FFF5F5F5</color>
+    <color name="gray_light">#FFF5F5F5</color>
+    <color name="gray_500">#FF9E9E9E</color>
+    <color name="yellow_500">#FFFFEB3B</color>
+    <color name="red_500">#FFF44336</color>
+    
+    <!-- 보라색 톤 기반 버튼 색상 시스템 -->
+    <!-- Primary Purple (주요 기능) -->
+    <color name="button_primary_normal">#8B5CF6</color>
+    <color name="button_primary_pressed">#7C3AED</color>
+    <color name="button_primary_border">#7C3AED</color>
+    <color name="button_primary_text">#FFFFFF</color>
+    
+    <!-- Secondary Lavender (보조 기능) -->
+    <color name="button_secondary_normal">#C4B5FD</color>
+    <color name="button_secondary_pressed">#A78BFA</color>
+    <color name="button_secondary_border">#A78BFA</color>
+    <color name="button_secondary_text">#FFFFFF</color>
+    
+    <!-- Accent Pink (강조 기능) -->
+    <color name="button_accent_normal">#F472B6</color>
+    <color name="button_accent_pressed">#EC4899</color>
+    <color name="button_accent_border">#EC4899</color>
+    <color name="button_accent_text">#FFFFFF</color>
+    
+    <!-- Warning Coral (경고/긴급) -->
+    <color name="button_warning_normal">#FDA4AF</color>
+    <color name="button_warning_pressed">#FB7185</color>
+    <color name="button_warning_border">#FB7185</color>
+    <color name="button_warning_text">#FFFFFF</color>
+    
+    <!-- Info Light Purple (정보/알림) -->
+    <color name="button_info_normal">#EDE9FE</color>
+    <color name="button_info_pressed">#DDD6FE</color>
+    <color name="button_info_border">#DDD6FE</color>
+    <color name="button_info_text">#6B21A8</color>
+    
+    <!-- Gray (비활성/보조) -->
+    <color name="button_gray_normal">#E5E7EB</color>
+    <color name="button_gray_pressed">#D1D5DB</color>
+    <color name="button_gray_border">#D1D5DB</color>
+    <color name="button_gray_text">#6B7280</color>
+    
+    <!-- 앱 로고 색상 -->
+    <color name="app_logo_color">#6750A4</color>
+</resources>
