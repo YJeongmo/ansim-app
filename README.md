@@ -1,178 +1,322 @@
-# CodeRelief - 노인 요양원 관리 시스템
+# 안심 요양원
 
-## 📋 프로젝트 개요
-노인 요양원을 위한 종합 관리 시스템으로, 환자 건강상태 모니터링, AI 기반 건강 분석, 알림 시스템 등을 제공합니다.
+> AI 기반 환자 상태 분석 및 이상 징후 대응 모바일 서비스
+> 
+> 🏆 디지털콘텐츠학회 대학생 논문 경진대회 **은상** (2025.11)
 
-## 🏗️ 기술 스택
+**문서** · [Notion](https://www.notion.so/APP-2c767a1b6c03801b9ec4cf6eba80c948) &nbsp;|&nbsp; **기간** · 2025.05 – 2025.11 &nbsp;|&nbsp; **팀** · 백엔드 1 / Android 2
+
+---
+
+## 프로젝트 소개
+
+초고령 사회 진입과 함께 증가하는 요양 수요 속에서, 보호자–요양원 간 소통 부족과 정보 비대칭 문제를 해결하기 위해 개발한 모바일 기반 통합 플랫폼입니다.
+
+요양보호사가 입력한 일별 기록을 AI가 자동 분석하여 이상 징후를 감지하고 보호자에게 알림을 전달합니다. 지도 기반 요양원 탐색, 면회 예약, 실시간 채팅, 공지사항 등 핵심 기능을 하나의 앱에서 제공합니다.
+
+---
+
+## 시스템 아키텍처
+
+```mermaid
+graph TD
+    App[Android App]
+
+    subgraph Backend["Spring Boot Backend"]
+        Auth[인증 / 역할 관리]
+        Patient[환자 / 기록 관리]
+        Analysis[AI 건강 분석]
+        Reservation[예약 / 채팅 / 알림]
+        Cache[(In-Memory Cache)]
+    end
+
+    DB[(MySQL)]
+    OpenAI[OpenAI API]
+
+    App -->|REST API| Auth
+    App -->|REST API| Patient
+    App -->|REST API| Analysis
+    App -->|REST API| Reservation
+
+    Analysis -->|프롬프트 요청| OpenAI
+    Analysis -->|캐시 조회/저장| Cache
+
+    Auth --> DB
+    Patient --> DB
+    Analysis --> DB
+    Reservation --> DB
+```
+
+---
+
+## ERD
+
+```mermaid
+erDiagram
+    INSTITUTION {
+        bigint institution_id PK
+        varchar name
+        varchar address
+        varchar phone
+        decimal rating
+    }
+    CAREGIVER {
+        bigint caregiver_id PK
+        varchar name
+        varchar role
+        bigint institution_id FK
+    }
+    GUARDIAN {
+        bigint guardian_id PK
+        varchar name
+        varchar phone
+        varchar relationship
+    }
+    PATIENT {
+        bigint patient_id PK
+        varchar name
+        date birthdate
+        varchar gender
+        bigint institution_id FK
+        bigint guardian_id FK
+    }
+    DAILY_RECORD {
+        bigint record_id PK
+        bigint patient_id FK
+        bigint caregiver_id FK
+        date record_date
+        varchar time_slot
+        varchar meal
+        varchar health_condition
+        boolean medication_taken
+        text notes
+    }
+    APPOINTMENT {
+        bigint appointment_id PK
+        bigint patient_id FK
+        bigint guardian_id FK
+        datetime start_time
+        datetime end_time
+        varchar type
+        varchar status
+    }
+    ACTIVITY {
+        bigint activity_id PK
+        bigint patient_id FK
+        bigint caregiver_id FK
+        varchar activity_type
+        datetime activity_date
+    }
+    NOTIFICATION {
+        bigint notification_id PK
+        bigint user_id
+        varchar user_type
+        varchar notification_type
+        boolean is_read
+    }
+    CHAT_ROOM {
+        bigint chat_room_id PK
+        bigint patient_id FK
+        bigint guardian_id FK
+        bigint caregiver_id FK
+    }
+    CHAT_MESSAGE {
+        bigint message_id PK
+        bigint chat_room_id FK
+        bigint sender_id
+        varchar sender_type
+        text message_text
+    }
+    CONSULTATION_REQUEST {
+        bigint request_id PK
+        bigint institution_id FK
+        varchar applicant_name
+        varchar status
+    }
+    NOTICE {
+        bigint notice_id PK
+        bigint institution_id FK
+        varchar title
+        varchar notice_type
+    }
+
+    INSTITUTION ||--o{ CAREGIVER : ""
+    INSTITUTION ||--o{ PATIENT : ""
+    INSTITUTION ||--o{ CONSULTATION_REQUEST : ""
+    INSTITUTION ||--o{ NOTICE : ""
+    INSTITUTION ||--o{ CHAT_ROOM : ""
+    PATIENT ||--o{ DAILY_RECORD : ""
+    PATIENT ||--o{ ACTIVITY : ""
+    PATIENT ||--o{ APPOINTMENT : ""
+    PATIENT ||--|| GUARDIAN : ""
+    PATIENT ||--o| CHAT_ROOM : ""
+    CAREGIVER ||--o{ DAILY_RECORD : ""
+    CAREGIVER ||--o{ ACTIVITY : ""
+    GUARDIAN ||--o{ APPOINTMENT : ""
+    CHAT_ROOM ||--o{ CHAT_MESSAGE : ""
+```
+
+---
+
+## 기술 스택
+
+| 영역 | 기술 |
+|---|---|
+| Backend | Java 17, Spring Boot 3.2, Spring Data JPA, Flyway |
+| Database | MySQL 8.0 |
+| AI / 외부 연동 | OpenAI API, Spring Retry |
+| Android | Retrofit + OkHttp, Material Design, Google Maps API, FCM |
+
+---
+
+## 주요 기능
+
+**비회원**
+- Google Maps API 기반 주변 요양원 탐색
+- 요양원 상담 문의 및 회신 수신
+
+**보호자**
+- 환자 일일 요양 기록(식사·투약·특이사항) 열람
+- 활동 프로그램 내용 및 사진 확인
+- 담당 요양보호사와의 채팅
+- 캘린더 기반 면회·면담 신청 및 승인 확인
+- AI 분석 기반 이상 징후 알림 수신
+
+**요양원 (요양보호사)**
+- 일일 요양 기록 입력 및 활동 프로그램 사진 업로드
+- 최근 5일 데이터 기반 AI 건강 분석 요청
+- 면회·면담 신청 승인 / 거부 관리
+- 비회원 상담 문의 확인 및 회신
+
+---
+
+## API
+
+<details>
+<summary>인증</summary>
+
+| Method | Endpoint | 설명 |
+|---|---|---|
+| POST | /api/auth/caregiver/login | 요양보호사 로그인 |
+| POST | /api/auth/caregiver/signup | 요양보호사 회원가입 |
+| POST | /api/auth/guardian/login | 보호자 로그인 |
+| POST | /api/auth/guardian/signup | 보호자 회원가입 |
+
+</details>
+
+<details>
+<summary>환자</summary>
+
+| Method | Endpoint | 설명 |
+|---|---|---|
+| GET | /api/patients/{patientId} | 환자 단건 조회 |
+| GET | /api/patients/institution/{institutionId} | 기관별 환자 목록 |
+| GET | /api/patients/guardian/{guardianId} | 보호자별 환자 조회 |
+| GET | /api/patients/caregiver/{caregiverId} | 담당 요양보호사별 환자 목록 |
+
+</details>
+
+<details>
+<summary>일일 기록</summary>
+
+| Method | Endpoint | 설명 |
+|---|---|---|
+| POST | /api/daily-records | 일일 기록 입력 |
+| GET | /api/daily-records/patient/{patientId} | 환자 기록 전체 조회 |
+| GET | /api/daily-records/patient/{patientId}/date/{date} | 날짜별 기록 조회 |
+
+</details>
+
+<details>
+<summary>AI 건강 분석</summary>
+
+| Method | Endpoint | 설명 |
+|---|---|---|
+| GET | /api/health-analysis/patient/{patientId} | 환자 AI 건강 분석 요청 |
+
+</details>
+
+<details>
+<summary>예약</summary>
+
+| Method | Endpoint | 설명 |
+|---|---|---|
+| POST | /api/reservations | 면회·면담 신청 |
+| GET | /api/reservations/guardian/{guardianId} | 보호자별 예약 목록 |
+| GET | /api/reservations/institution/{institutionId} | 기관별 예약 목록 |
+| GET | /api/reservations/pending | 승인 대기 목록 |
+| PUT | /api/reservations/{appointmentId}/approval | 승인 / 거부 처리 |
+| PUT | /api/reservations/{appointmentId}/cancel | 예약 취소 |
+
+</details>
+
+<details>
+<summary>채팅</summary>
+
+| Method | Endpoint | 설명 |
+|---|---|---|
+| POST | /api/chat/rooms | 채팅방 생성 또는 조회 |
+| POST | /api/chat/messages | 메시지 전송 |
+| GET | /api/chat/rooms/{chatRoomId}/messages | 메시지 목록 조회 |
+| GET | /api/chat/users/{userId}/rooms | 사용자 채팅방 목록 |
+
+</details>
+
+<details>
+<summary>공지 / 상담 / 알림</summary>
+
+| Method | Endpoint | 설명 |
+|---|---|---|
+| POST | /api/notices | 공지 작성 |
+| GET | /api/notices/institution/{institutionId} | 기관 공지 목록 |
+| PUT | /api/notices/{noticeId} | 공지 수정 |
+| DELETE | /api/notices/{noticeId} | 공지 삭제 |
+| POST | /api/consultation-requests | 상담 문의 등록 |
+| GET | /api/consultation-requests/institution/{institutionId} | 기관별 문의 목록 |
+| GET | /api/notifications/{userId} | 알림 목록 조회 |
+| GET | /api/notifications/{userId}/unread-count | 미읽은 알림 수 |
+
+</details>
+
+---
+
+## 앱 구동 영상
+
+> 준비 중
+
+---
+
+## 실행 방법
+
+### 사전 준비
+
+```sql
+CREATE DATABASE ansim_yoyang;
+CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON ansim_yoyang.* TO 'appuser'@'localhost';
+```
 
 ### 백엔드
-- **Spring Boot**: 3.2.5
-- **Java**: 17
-- **데이터베이스**: MySQL 8.0
-- **마이그레이션**: Flyway 9.22.3
-- **AI 모델**: GPT-5-mini (OpenAI)
 
-### 프론트엔드
-- **Android**: 네이티브 앱
-- **네트워킹**: Retrofit + OkHttp
-- **UI**: Material Design
-
-## 🚀 주요 기능
-
-### 1. 환자 관리
-- 환자 기본 정보 관리
-- 건강상태 기록 관리
-- 일별 활동 기록
-
-### 2. AI 건강 분석
-- **GPT-5-mini 기반**: 비용 효율적인 건강상태 분석
-- **실시간 분석**: 환자 데이터 기반 위험도 평가
-- **캐싱 시스템**: 동일 요청에 대해 즉시 응답
-- **자동 재시도**: 네트워크 오류 시 자동 복구
-
-### 3. 알림 시스템
-- 건강상태 주의 알림
-- 예약 관련 알림
-- 실시간 알림 배송
-
-### 4. 예약 관리
-- 방문 예약 시스템
-- 승인/거부 관리
-- 일정 관리
-
-## 📊 성능 최적화
-
-### GPT-5-mini 최적화
-- **비용 절약**: 95% 이상 (GPT-4 대비)
-- **응답 속도**: 캐시된 요청 < 1초
-- **분석 품질**: medium verbosity + reasoning
-
-### 캐싱 시스템
-- **메모리 기반**: 24시간 TTL
-- **캐시 크기**: 최대 100개 응답
-- **고유 키**: SHA-256 해시 기반
-
-### 네트워크 최적화
-- **타임아웃 설정**: 연결 30초, 읽기 2분
-- **재시도 로직**: 최대 3회, 지수 백오프
-- **안정성**: 자동 오류 복구
-
-## 🛠️ 설치 및 실행
-
-### 백엔드 실행
 ```bash
 cd back
 ./gradlew bootRun
 ```
 
-### Android 앱 빌드
+> Flyway가 애플리케이션 시작 시 DB 마이그레이션을 자동으로 수행합니다.
+
+### Android 앱
+
 ```bash
 cd front
 ./gradlew assembleDebug
 ```
 
-### 데이터베이스 설정
-```sql
--- MySQL 데이터베이스 생성
-CREATE DATABASE ansim_yoyang;
-CREATE USER 'appuser'@'localhost' IDENTIFIED BY '1111';
-GRANT ALL PRIVILEGES ON ansim_yoyang.* TO 'appuser'@'localhost';
-```
-
-## 📁 프로젝트 구조
-
-```
-codeRelief-0914_notification/
-├── back/                          # Spring Boot 백엔드
-│   ├── src/main/java/
-│   │   └── com/ansimyoyang/
-│   │       ├── service/           # 비즈니스 로직
-│   │       │   └── OpenAIService.java  # AI 분석 서비스
-│   │       ├── controller/        # REST API 컨트롤러
-│   │       ├── domain/           # 엔티티 및 DTO
-│   │       └── repository/       # 데이터 접근 계층
-│   ├── src/main/resources/
-│   │   └── db/migration/         # Flyway 마이그레이션
-│   └── build.gradle
-├── front/                         # Android 앱
-│   ├── app/src/main/java/
-│   │   └── com/example/coderelief/
-│   │       ├── api/              # API 클라이언트
-│   │       │   └── ApiClient.java
-│   │       └── ui/               # UI 컴포넌트
-│   └── build.gradle
-├── PERFORMANCE_OPTIMIZATION.md    # 성능 최적화 문서
-├── CHANGELOG.md                   # 변경 이력
-└── README.md                      # 프로젝트 문서
-```
-
-## 🔬 연구/평가(요약)
-- OpenAI 예측 정확도 평가는 `back/research` 디렉터리에서 독립적으로 수행합니다.
-- NHANES DPQ(PHQ‑9) 라벨로 분할/예측/평가를 진행하며, 상세 절차는 `back/research/README.md`를 참고하세요.
- - 참고: PHQ‑9 기반 분류는 규칙으로 완전 결정 가능한 항목이 있어 지표가 1.0으로 과대평가될 수 있습니다. 일반화 검증 강화를 위해 추가 데이터셋(예: KNHANES, CMS MDS 3.0 RIF, 승인형 코호트) 수집·평가를 병행합니다.
-
-## 🔧 설정
-
 ### 환경 변수
-```properties
-# OpenAI API 설정
-openai.api.key=your_api_key_here
-openai.api.url=https://api.openai.com/v1/chat/completions
 
-# 데이터베이스 설정
+```properties
+openai.api.key=your_openai_api_key
 spring.datasource.url=jdbc:mysql://localhost:3306/ansim_yoyang
 spring.datasource.username=appuser
-spring.datasource.password=1111
+spring.datasource.password=your_password
 ```
-
-### Android 네트워크 설정
-```java
-// ApiClient.java
-OkHttpClient client = new OkHttpClient.Builder()
-    .connectTimeout(30, TimeUnit.SECONDS)
-    .readTimeout(60, TimeUnit.SECONDS)
-    .writeTimeout(30, TimeUnit.SECONDS)
-    .build();
-```
-
-## 📈 성능 지표
-
-### API 응답 시간
-- **신규 분석**: 15-30초
-- **캐시된 요청**: < 1초
-- **재시도 시**: 자동 복구
-
-### 비용 효율성
-- **GPT-4**: $0.09-0.18 (1,000 토큰)
-- **GPT-5-mini**: $0.002-0.004 (1,000 토큰)
-- **절약률**: 95% 이상
-
-## 🐛 알려진 이슈
-
-1. **포트 충돌**: 8080 포트가 이미 사용 중일 때 발생
-   - 해결: `pkill -f "ansim-yoyang"` 후 재시작
-
-2. **Android APK 로딩 오류**: 권한 문제
-   - 해결: `chmod +x ./gradlew` 후 재빌드
-
-## 🤝 기여하기
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 `LICENSE` 파일을 참조하세요.
-
-## 📞 연락처
-
-- **프로젝트 링크**: [https://github.com/your-username/codeRelief-0914_notification](https://github.com/your-username/codeRelief-0914_notification)
-
----
-
-**마지막 업데이트**: 2025-09-15  
-**버전**: 1.0.0  
-**상태**: ✅ 운영 중
