@@ -4,7 +4,7 @@
 > 
 > 🏆 디지털콘텐츠학회 대학생 논문 경진대회 **은상** (2025.11)
 
-**문서** · [Notion](https://www.notion.so/APP-2c767a1b6c03801b9ec4cf6eba80c948) &nbsp;|&nbsp; **기간** · 2025.05 – 2025.11 &nbsp;|&nbsp; **팀** · 백엔드 2 / Android 2
+**문서** · [Notion](https://www.notion.so/APP-2c767a1b6c03801b9ec4cf6eba80c948) &nbsp;|&nbsp; **기간** · 2025.05 – 2025.11 &nbsp;|&nbsp; **팀** · 백엔드 3 / Android 1
 
 ---
 
